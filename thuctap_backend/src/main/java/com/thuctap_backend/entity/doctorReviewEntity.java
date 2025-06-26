@@ -2,36 +2,38 @@ package com.thuctap_backend.entity;
 
 import java.time.LocalDateTime;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "DoctorReviews")
 @Data @NoArgsConstructor @AllArgsConstructor
-public class userEntity {
+public class doctorReviewEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userID;
+    private Integer reviewID;
 
-    private String fullName;
+    @ManyToOne
+    @JoinColumn(name = "patientID")
+    private userEntity userEntity;
 
-    @Column(unique = true)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "doctorID")
+    private doctorEntity doctorEntity;
 
-    private String passwordHash;
+    @Column(nullable = false)
+    private Integer rating;
 
-    private String phoneNumber;
+    private String comment;
 
-    private String role = "PATIENT";
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-
+    private LocalDateTime reviewedAt = LocalDateTime.now();
 }
