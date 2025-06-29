@@ -8,4 +8,5 @@ import com.thuctap_backend.entity.userEntity;
 
 public interface UserJPA extends JpaRepository<userEntity, Integer> {
 	Optional<userEntity> findByEmail(String email);
+	boolean existsByEmail(String email);
 }
